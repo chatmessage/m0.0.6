@@ -8,17 +8,17 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="277dp"
-        android:layout_height="99dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="291dp"
+        android:layout_height="148dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
-        android:text="Добро пожаловать"
+        android:text="Добро пожаловать в Gosling"
         android:textAlignment="center"
         android:textColor="#0037FF"
-        android:textSize="40dp"
+        android:textSize="27dp"
         app:layout_constraintBottom_toTopOf="@+id/editLogin"
         app:layout_constraintEnd_toEndOf="@+id/editLogin"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/editLogin" />
 
     <EditText

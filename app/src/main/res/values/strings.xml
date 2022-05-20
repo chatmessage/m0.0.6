@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidChat</string>
+    <string name="app_name">Gosling</string>
     <string name="auth_label">Authentication</string>
     <string name="login_label">Login</string>
     <string name="token_success_label">Token was successfully received</string>
