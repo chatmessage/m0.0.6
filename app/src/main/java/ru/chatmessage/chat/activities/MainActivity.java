@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private static final String AUTH_URL = "http://10.0.2.2:8080/login";
+    private static final String AUTH_URL = "http://192.168.1.123:8080/login";
     private EditText editText;
     private TextView tokenTextView;
     public Fragment friendfragment;
@@ -46,13 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onClickLeaveFriendlist(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transition = fragmentManager.beginTransaction();
-        friendfragment = new FriendFragment();
-        transition.add(R.id.friendframe, friendfragment, "add fragment");
-        transition.commit();
-    }
+
 
     public void onLoginClick(View view) {
         String login = editText.getText().toString();
