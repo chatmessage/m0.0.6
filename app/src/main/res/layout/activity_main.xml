@@ -3,37 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:clipToPadding="false"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
     tools:context="ru.chatmessage.chat.activities.ChatActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/namebar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/lightblue"
+        android:layout_alignParentStart="true">
 
-        <FrameLayout
-            android:id="@+id/container"
+        <TextView
+            android:id="@+id/nameview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="15"
-        android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold|normal"
+            android:layout_toRightOf="@id/bexit"
+            />
 
         <ImageButton
             android:id="@+id/bexit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:backgroundTint="@color/lightblue"
+
             android:clickable="true"
             android:src="@drawable/ic_bleavefriendlist" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/namebar"/>
 
 </LinearLayout>

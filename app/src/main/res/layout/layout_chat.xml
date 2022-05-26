@@ -7,41 +7,12 @@
     android:orientation="horizontal"
     tools:context="ru.chatmessage.chat.activities.ChatActivity">
 
-    <RelativeLayout
-        android:id="@+id/namebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/lightblue"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/nameview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold|normal"
-            android:layout_toRightOf="@id/bexit"
-
-            />
-
-
-    </RelativeLayout>
-
 
     <ListView
         android:id="@+id/messagelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bsend"
-        android:layout_below="@id/namebar"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
