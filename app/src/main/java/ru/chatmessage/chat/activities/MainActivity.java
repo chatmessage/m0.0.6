@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
 //        transition.add(R.id.friendframe, friendfragment, "add fragment");
 //        transition.commit();
     }
-
-
-
-
     public void onLoginClick(View view) {
         String login = editText.getText().toString();
         if (login.length() > 0) {
