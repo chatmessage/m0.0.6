@@ -45,7 +45,7 @@ public class FriendFragment extends Fragment {
         entfriend = view.findViewById(R.id.emailField);
         listView = view.findViewById(R.id.friendlist);
 
-        dbHalper = new DBHalper(thiscontext, DBHalper.KEY_NAME, 1);
+        dbHalper = new DBHalper(thiscontext, DBHalper.DATABASE_NAME, 1);
 
         return view;
     }
@@ -63,7 +63,6 @@ public class FriendFragment extends Fragment {
         database.insert(DBHalper.TABLE_FRIEND, null, contentValues);
 
         database.close();
-
 
     }
 
