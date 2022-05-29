@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,9 @@ public class FriendFragment extends Fragment {
     ImageButton badd, bdel;
     String name;
     ListView listView;
-    ArrayAdapter<String> adapter;
-    ArrayList<String> users = new ArrayList<String>();
+    Cursor c;
+    SimpleCursorAdapter scAdapter;
+
 
     @Nullable
     @Override
@@ -42,6 +44,9 @@ public class FriendFragment extends Fragment {
 
         badd = view.findViewById(R.id.baddfriend);
         bdel = view.findViewById(R.id.bdelfriend);
+        badd.setOnClickListener(v -> onClickAdd());
+        bdel.setOnClickListener(v -> onClickDel());
+
         entfriend = view.findViewById(R.id.emailField);
         listView = view.findViewById(R.id.friendlist);
 
@@ -57,20 +62,22 @@ public class FriendFragment extends Fragment {
     public void onClickAdd(){
         name = entfriend.getText().toString();
         entfriend.getText().clear();
+        if(name.length()>0) {
+            contentValues.put(DBHalper.KEY_NAME, name);
 
-        contentValues.put(DBHalper.KEY_NAME, name);
+            database.insert(DBHalper.TABLE_FRIEND, null, contentValues);
 
-        database.insert(DBHalper.TABLE_FRIEND, null, contentValues);
-
-        database.close();
-
+            database.close();
+        }
     }
 
-//    public void onClickDel(){
-//        name = entfriend.getText().toString();
-//        entfriend.getText().clear();
-//
-//        Cursor cursor = database.query(DBHalper.TABLE_FRIEND,null,null, null, null,null,null);
-//        }
+    public void onClickDel() {
+        name = entfriend.getText().toString();
+        entfriend.getText().clear();
+
+        if (name.length() > 0) {
+            database.delete(DBHalper.TABLE_FRIEND, DBHalper.KEY_NAME, new String[]{name});
+        }
+    }
 
 }

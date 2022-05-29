@@ -25,7 +25,8 @@
             android:layout_marginBottom="2dp"
             android:backgroundTint="@color/lightblue"
             android:clickable="true"
-            android:src="@drawable/ic_bdelfriend" />
+            android:src="@drawable/ic_bdelfriend"
+            android:onClick="onClickDel"/>
 
         <ImageButton
             android:id="@+id/baddfriend"
