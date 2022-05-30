@@ -12,7 +12,7 @@ public class DBHalper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "listDb";
     public static final String TABLE_FRIEND = "friend";
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name";
 
     public DBHalper(@Nullable Context context, @Nullable String name, int version) {

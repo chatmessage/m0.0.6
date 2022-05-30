@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import ru.chatmessage.chat.R;
 import ru.chatmessage.chat.components.DBHalper;
@@ -33,7 +36,7 @@ public class FriendFragment extends Fragment {
     ListView listView;
     Cursor c;
     SimpleCursorAdapter scAdapter;
-
+    List<String> list;
 
     @Nullable
     @Override
@@ -47,10 +50,13 @@ public class FriendFragment extends Fragment {
         badd.setOnClickListener(v -> onClickAdd());
         bdel.setOnClickListener(v -> onClickDel());
 
+        list = new ArrayList<String>();
         entfriend = view.findViewById(R.id.emailField);
         listView = view.findViewById(R.id.friendlist);
 
         dbHalper = new DBHalper(thiscontext, DBHalper.DATABASE_NAME, 1);
+
+        returnNames();
 
         return view;
     }
@@ -67,7 +73,7 @@ public class FriendFragment extends Fragment {
 
             database.insert(DBHalper.TABLE_FRIEND, null, contentValues);
 
-            database.close();
+            returnNames();
         }
     }
 
@@ -77,7 +83,24 @@ public class FriendFragment extends Fragment {
 
         if (name.length() > 0) {
             database.delete(DBHalper.TABLE_FRIEND, DBHalper.KEY_NAME, new String[]{name});
+        returnNames();
         }
+    }
+
+    public void returnNames(){
+        c = database.query(DBHalper.TABLE_FRIEND, new String[]{DBHalper.KEY_NAME},
+                null, null,
+                null, null, null);
+
+        while (c.moveToNext()) {
+            int userNameIndex = c.getColumnIndex("name");
+            String retname = c.getString(userNameIndex);
+            list.add(retname);
+        }
+
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
+
+        listView.setAdapter(nameAdapter);
     }
 
 }
