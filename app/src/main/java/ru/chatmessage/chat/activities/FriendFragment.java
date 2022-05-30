@@ -18,9 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import ru.chatmessage.chat.R;
@@ -37,6 +35,8 @@ public class FriendFragment extends Fragment {
     Cursor c;
     SimpleCursorAdapter scAdapter;
     List<String> list;
+
+    ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
 
     @Nullable
     @Override
@@ -97,8 +97,6 @@ public class FriendFragment extends Fragment {
             String retname = c.getString(userNameIndex);
             list.add(retname);
         }
-
-        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
 
         listView.setAdapter(nameAdapter);
     }
