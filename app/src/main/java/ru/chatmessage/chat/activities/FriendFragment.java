@@ -36,7 +36,7 @@ public class FriendFragment extends Fragment {
     SimpleCursorAdapter scAdapter;
     List<String> list;
 
-    ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
+
 
     @Nullable
     @Override
@@ -86,6 +86,8 @@ public class FriendFragment extends Fragment {
         returnNames();
         }
     }
+
+    ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
 
     public void returnNames(){
         c = database.query(DBHalper.TABLE_FRIEND, new String[]{DBHalper.KEY_NAME},
