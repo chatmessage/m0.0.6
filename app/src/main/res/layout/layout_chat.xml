@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="#D6D6D6"
     tools:context="ru.chatmessage.chat.activities.ChatActivity">
 
 
@@ -12,7 +13,7 @@
         android:id="@+id/messagelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bsend"
+        android:layout_above="@id/sendlayout"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -22,31 +23,32 @@
         android:divider="@color/transparent"
         android:transcriptMode="alwaysScroll"></ListView>
 
-    <ImageButton
-        android:id="@+id/bsend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_bsend"
-        android:layout_margin="2dp"
-        android:onClick="onClickSendMessage"
-        />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/sendlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/bsend"
+        android:background="@drawable/lines"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true">
 
         <EditText
             android:id="@+id/textField"
-            android:layout_width="match_parent"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:hint="Сообщение"/>
+            android:hint="Сообщение" />
+
+        <ImageButton
+            android:id="@+id/bsend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#D6D6D6"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_bsend"
+            android:layout_margin="2dp"
+            android:onClick="onClickSendMessage"
+            />
 
     </LinearLayout>
 

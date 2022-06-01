@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6C6C6C"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@color/lightblue"
+        android:background="@color/lightyellow"
         android:layout_alignParentStart="true">
 
         <ImageButton
@@ -23,7 +24,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
-            android:backgroundTint="@color/lightblue"
+            android:backgroundTint="@color/lightyellow"
             android:clickable="true"
             android:src="@drawable/ic_bdelfriend"
             android:onClick="onClickDel"/>
@@ -38,7 +39,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
-            android:backgroundTint="@color/lightblue"
+            android:backgroundTint="@color/lightyellow"
             android:clickable="true"
             android:src="@drawable/ic_baddfriend"
             android:onClick="onClickAdd"/>
@@ -55,7 +56,7 @@
             <EditText
                 android:id="@+id/emailField"
                 android:layout_width="match_parent"
-                android:background="@color/lightblue"
+                android:background="@color/lightyellow"
                 android:gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"

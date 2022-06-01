@@ -4,11 +4,11 @@
     android:layout_height="30dp"
     >
 
-    <TextView
+    <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="15dp"
+        android:layout_height="50dp"
+        android:textSize="14dp"
         android:clickable="true"
         android:textColor="#0026FF"
         android:gravity="center_vertical"
