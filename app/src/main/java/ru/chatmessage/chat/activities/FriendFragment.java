@@ -90,7 +90,7 @@ public class FriendFragment extends Fragment {
 
         if (name.length() > 0) {
             SQLiteDatabase database = dbHelper.getWritableDatabase();
-            database.delete(DatabaseContract.personEntry.TABLE_NAME, DatabaseContract.personEntry.COLUMN_NAME, new String[]{name});
+            database.delete(DatabaseContract.personEntry.TABLE_NAME, DatabaseContract.personEntry.COLUMN_NAME + " = ?", new String[]{name});
             returnNames();
         }
     }
@@ -102,7 +102,6 @@ public class FriendFragment extends Fragment {
                 null, null, null);
 
         Set<UserData> result = new HashSet<>();
-        result.addAll(friends);
 
         while (c.moveToNext()) {
             int userNameIndex = c.getColumnIndex("name");
