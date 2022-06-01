@@ -16,25 +16,29 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ru.chatmessage.chat.R;
-import ru.chatmessage.chat.components.DBHalper;
+import ru.chatmessage.chat.components.DBHelper;
+import ru.chatmessage.chat.components.DatabaseContract;
+import ru.chatmessage.chat.data.UserData;
 
 public class FriendFragment extends Fragment {
 
     EditText entfriend;
-    DBHalper dbHalper;
+    DBHelper dbHelper;
     Context thiscontext;
     ImageButton badd, bdel;
     String name;
     ListView listView;
     Cursor c;
-    SimpleCursorAdapter scAdapter;
-    List<String> list;
+    List<UserData> friends = new ArrayList<>();
+    PersonAdapter friendsAdapter;
 
 
 
@@ -45,33 +49,36 @@ public class FriendFragment extends Fragment {
 
         thiscontext = container.getContext();
 
+        friendsAdapter = new PersonAdapter(thiscontext);
+
         badd = view.findViewById(R.id.baddfriend);
         bdel = view.findViewById(R.id.bdelfriend);
         badd.setOnClickListener(v -> onClickAdd());
         bdel.setOnClickListener(v -> onClickDel());
 
-        list = new ArrayList<String>();
         entfriend = view.findViewById(R.id.emailField);
         listView = view.findViewById(R.id.friendlist);
+        listView.setAdapter(friendsAdapter);
 
-        dbHalper = new DBHalper(thiscontext, DBHalper.DATABASE_NAME, 1);
-
-        returnNames();
+        dbHelper = new DBHelper(thiscontext);
 
         return view;
     }
 
-    SQLiteDatabase database = dbHalper.getWritableDatabase();
-
-    ContentValues contentValues = new ContentValues();
+    @Override
+    public void onStart() {
+        super.onStart();
+        returnNames();
+    }
 
     public void onClickAdd(){
         name = entfriend.getText().toString();
         entfriend.getText().clear();
+        ContentValues contentValues = new ContentValues();
         if(name.length()>0) {
-            contentValues.put(DBHalper.KEY_NAME, name);
-
-            database.insert(DBHalper.TABLE_FRIEND, null, contentValues);
+            contentValues.put(DatabaseContract.personEntry.COLUMN_NAME, name);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            database.insert(DatabaseContract.personEntry.TABLE_NAME, null, contentValues);
 
             returnNames();
         }
@@ -82,25 +89,51 @@ public class FriendFragment extends Fragment {
         entfriend.getText().clear();
 
         if (name.length() > 0) {
-            database.delete(DBHalper.TABLE_FRIEND, DBHalper.KEY_NAME, new String[]{name});
-        returnNames();
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+            database.delete(DatabaseContract.personEntry.TABLE_NAME, DatabaseContract.personEntry.COLUMN_NAME, new String[]{name});
+            returnNames();
         }
     }
 
-    ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(thiscontext, R.layout.list_item, list);
-
     public void returnNames(){
-        c = database.query(DBHalper.TABLE_FRIEND, new String[]{DBHalper.KEY_NAME},
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        c = database.query(DatabaseContract.personEntry.TABLE_NAME, new String[]{DatabaseContract.personEntry.COLUMN_NAME},
                 null, null,
                 null, null, null);
+
+        Set<UserData> result = new HashSet<>();
+        result.addAll(friends);
 
         while (c.moveToNext()) {
             int userNameIndex = c.getColumnIndex("name");
             String retname = c.getString(userNameIndex);
-            list.add(retname);
+            result.add(new UserData(retname, null));
         }
 
-        listView.setAdapter(nameAdapter);
+        friends.clear();
+        friends.addAll(result);
+        friendsAdapter.notifyDataSetChanged();
+    }
+
+
+    private class PersonAdapter extends ArrayAdapter<UserData> {
+
+        public PersonAdapter(Context context) {
+            super(context, R.layout.list_item, friends);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            UserData friend = getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.list_item, null);
+            }
+            ((TextView) convertView.findViewById(R.id.login))
+                    .setText(friend.getLogin());
+            return convertView;
+        }
     }
 
 }

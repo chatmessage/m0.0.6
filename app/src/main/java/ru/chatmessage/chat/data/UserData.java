@@ -2,6 +2,8 @@ package ru.chatmessage.chat.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class UserData {
 
     @SerializedName("login")
@@ -31,4 +33,16 @@ public class UserData {
         this.token = token;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return Objects.equals(login, userData.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
+    }
 }
