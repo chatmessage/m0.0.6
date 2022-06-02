@@ -2,6 +2,7 @@ package ru.chatmessage.chat.activities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,10 +10,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.zip.Inflater;
 
 import ru.chatmessage.chat.R;
 import ru.chatmessage.chat.components.DBHelper;
@@ -39,6 +44,7 @@ public class FriendFragment extends Fragment {
     Cursor c;
     List<UserData> friends = new ArrayList<>();
     PersonAdapter friendsAdapter;
+    FriendFragment fragment;
 
 
 
@@ -59,6 +65,17 @@ public class FriendFragment extends Fragment {
         entfriend = view.findViewById(R.id.emailField);
         listView = view.findViewById(R.id.friendlist);
         listView.setAdapter(friendsAdapter);
+        fragment = this;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserData user = (UserData)adapterView.getAdapter().getItem(i);
+                System.out.println(user.getLogin());
+                Intent chat = new Intent(getContext(), ChatActivity.class);
+                chat.putExtra("friendLogin", user.getLogin());
+                getActivity().startActivityFromFragment(fragment, chat, 1);
+            }
+        });
 
         dbHelper = new DBHelper(thiscontext);
 
@@ -118,7 +135,7 @@ public class FriendFragment extends Fragment {
     private class PersonAdapter extends ArrayAdapter<UserData> {
 
         public PersonAdapter(Context context) {
-            super(context, R.layout.list_item, friends);
+            super(context, android.R.layout.simple_list_item_1, friends);
         }
 
         @Override
@@ -127,12 +144,18 @@ public class FriendFragment extends Fragment {
 
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext())
-                        .inflate(R.layout.list_item, null);
+                        .inflate(android.R.layout.simple_list_item_1, null);
             }
-            ((TextView) convertView.findViewById(R.id.login))
+            ((TextView) convertView.findViewById(android.R.id.text1))
                     .setText(friend.getLogin());
             return convertView;
         }
+
+//        public void getLogin(View view) {
+//            Button btn = (Button) view;
+//            String friendLogin = btn.getText().toString();
+//            Log.i("ButtonClick", friendLogin);
+//        }
     }
 
 }

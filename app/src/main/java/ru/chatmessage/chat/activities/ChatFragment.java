@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -30,7 +29,6 @@ import ua.naiksoftware.stomp.StompClient;
 public class ChatFragment extends Fragment {
 
     private static final String WS_URL = "ws://10.0.2.2:8080/chat/android";
-    private static final String recipient = "roman";
 
     private MessageAdapter messageAdapter;
     private ListView messagesView;
@@ -41,6 +39,7 @@ public class ChatFragment extends Fragment {
     private Gson jsonParser;
     private String login;
     private String token;
+    private String friendLogin;
 
     @Nullable
     @Override
@@ -60,6 +59,7 @@ public class ChatFragment extends Fragment {
 
         login = bundle.getString("login");
         token = bundle.getString("token");
+        friendLogin = bundle.getString("friendLogin");
 
         stompConnection();
 
@@ -130,7 +130,7 @@ public class ChatFragment extends Fragment {
         editText.getText().clear();
 
         if (msg.length() > 0) {
-            sendMessage(new Message(login, recipient, msg, true));
+            sendMessage(new Message(login, friendLogin, msg, true));
         }
     }
 

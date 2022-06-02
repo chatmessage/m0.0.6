@@ -16,6 +16,7 @@ public class ChatActivity extends AppCompatActivity {
     private FragmentManager manager;
     private String login;
     private String token;
+    private String friendLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,14 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         login = intent.getStringExtra("login");
         token = intent.getStringExtra("token");
+        friendLogin = intent.getStringExtra("friendLogin");
 
         ChatFragment chatFragment = new ChatFragment();
 
         Bundle bundleCompat = new Bundle();
         bundleCompat.putString("login", login);
         bundleCompat.putString("token", token);
+        bundleCompat.putString("friendLogin", friendLogin);
 
         chatFragment.setArguments(bundleCompat);
 
