@@ -18,6 +18,18 @@ public class ChatActivity extends AppCompatActivity {
     private String token;
     private String friendLogin;
 
+    public String getLogin() {
+        return login;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getFriendLogin() {
+        return friendLogin;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
