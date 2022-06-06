@@ -18,6 +18,7 @@
         android:background="@drawable/my_message"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="8dp"
         android:textColor="#fff"
         android:padding="8dp"
