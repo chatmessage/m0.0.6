@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,9 +72,22 @@ public class FriendFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 UserData user = (UserData)adapterView.getAdapter().getItem(i);
                 System.out.println(user.getLogin());
-                Intent chat = new Intent(getContext(), ChatActivity.class);
-                chat.putExtra("friendLogin", user.getLogin());
-                getActivity().startActivityFromFragment(fragment, chat, 1);
+
+                ChatActivity chatActivity = (ChatActivity) getActivity();
+                String login = chatActivity.getLogin();
+                String token = chatActivity.getToken();
+
+                Bundle bundleCompat = new Bundle();
+                bundleCompat.putString("login", login);
+                bundleCompat.putString("token", token);
+                bundleCompat.putString("friendLogin", user.getLogin());
+
+                ChatFragment chatFragment = new ChatFragment();
+                chatFragment.setArguments(bundleCompat);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, chatFragment, "chatFragment");
+                transaction.commit();
             }
         });
 
