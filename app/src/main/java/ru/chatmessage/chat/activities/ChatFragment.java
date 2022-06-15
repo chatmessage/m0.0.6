@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 import io.reactivex.CompletableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -152,6 +154,7 @@ public class ChatFragment extends Fragment {
     private void outputMessages(Message... messages) {
         getActivity().runOnUiThread(() -> {
             for (Message msg : messages) {
+                if (Objects.equals(msg.getFrom(), login) || Objects.equals(msg.getTo(), login))
                 msg.checkIsBelongsToCurrentUser(login);
                 showMessage(msg);
             }

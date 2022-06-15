@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String AUTH_URL = "http://10.0.2.2:8080/login";
     private EditText editText;
     private TextView tokenTextView;
-    public Fragment friendfragment;
+//    public Fragment friendfragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
