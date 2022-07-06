@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 import io.reactivex.CompletableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -86,10 +88,11 @@ public class ChatFragment extends Fragment {
         );
         compositeDisposable.add(
                 stompClient.send("/app/history",
-                                "{\"token\":\"" + token + "\"}")
+                                "{\"token\":\"" + token + "\", \"toLogin\":\"" + friendLogin + "}")
                         .compose(applySchedulers())
                         .subscribe(() -> {
                             Log.d("", "STOMP echo send successfully");
+
                         }, throwable -> {
                             Log.e("", "Error send STOMP echo", throwable);
                             toast(throwable.getMessage());
@@ -152,8 +155,12 @@ public class ChatFragment extends Fragment {
     private void outputMessages(Message... messages) {
         getActivity().runOnUiThread(() -> {
             for (Message msg : messages) {
-                msg.checkIsBelongsToCurrentUser(login);
-                showMessage(msg);
+                if (Objects.equals(msg.getFrom(), login) || Objects.equals(msg.getTo(), login)) {
+                    msg.checkIsBelongsToCurrentUser(login);
+                    if (!msg.isBelongsToCurrentUser()) {
+                        showMessage(msg);
+                    }
+                }
             }
         });
     }
