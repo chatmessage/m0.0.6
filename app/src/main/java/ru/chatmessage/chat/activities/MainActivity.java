@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private static final String AUTH_URL = "http://10.0.2.2:8080/login";
+    private static final String AUTH_URL = "http://192.168.1.123:8080/login";
     private EditText editText;
     private TextView tokenTextView;
 //    public Fragment friendfragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+//                WindowManager.LayoutParams.FLAG_SECURE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_email_code);
         editText = findViewById(R.id.editLogin);
